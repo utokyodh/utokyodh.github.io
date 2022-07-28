@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vis-network@latest/styles/vis-network.css" type="text/css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vis-network@latest/dist/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 750px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "asian studies", "label": "asian studies", "shape": "dot", "size": 10}, {"id": "feminist studies", "label": "feminist studies", "shape": "dot", "size": 10}, {"id": "ethnography and folklore", "label": "ethnography and folklore", "shape": "dot", "size": 10}, {"id": "cultural studies", "label": "cultural studies", "shape": "dot", "size": 10}, {"id": "humanities computing", "label": "humanities computing", "shape": "dot", "size": 10}, {"id": "computer science", "label": "computer science", "shape": "dot", "size": 10}, {"id": "literary studies", "label": "literary studies", "shape": "dot", "size": 10}, {"id": "law and legal studies", "label": "law and legal studies", "shape": "dot", "size": 10}, {"id": "history", "label": "history", "shape": "dot", "size": 10}, {"id": "book and print history", "label": "book and print history", "shape": "dot", "size": 10}, {"id": "art history", "label": "art history", "shape": "dot", "size": 10}, {"id": "history of science", "label": "history of science", "shape": "dot", "size": 10}, {"id": "theology and religious studies", "label": "theology and religious studies", "shape": "dot", "size": 10}, {"id": "linguistics", "label": "linguistics", "shape": "dot", "size": 10}, {"id": "political science", "label": "political science", "shape": "dot", "size": 10}, {"id": "sociology", "label": "sociology", "shape": "dot", "size": 10}, {"id": "philology", "label": "philology", "shape": "dot", "size": 10}, {"id": "library \u0026 information science", "label": "library \u0026 information science", "shape": "dot", "size": 10}, {"id": "geography and geo-humanities", "label": "geography and geo-humanities", "shape": "dot", "size": 10}, {"id": "indigenous studies", "label": "indigenous studies", "shape": "dot", "size": 10}, {"id": "media studies", "label": "media studies", "shape": "dot", "size": 10}, {"id": "education/ pedagogy", "label": "education/ pedagogy", "shape": "dot", "size": 10}, {"id": "chicano/a/x", "label": "chicano/a/x", "shape": "dot", "size": 10}, {"id": "latino/a/x studies", "label": "latino/a/x studies", "shape": "dot", "size": 10}, {"id": "archaeology", "label": "archaeology", "shape": "dot", "size": 10}, {"id": "environmental", "label": "environmental", "shape": "dot", "size": 10}, {"id": "ocean", "label": "ocean", "shape": "dot", "size": 10}, {"id": "and waterway studies", "label": "and waterway studies", "shape": "dot", "size": 10}, {"id": "transgender and non-binary studies", "label": "transgender and non-binary studies", "shape": "dot", "size": 10}, {"id": "design studies", "label": "design studies", "shape": "dot", "size": 10}, {"id": "informatics", "label": "informatics", "shape": "dot", "size": 10}, {"id": "gender and sexuality studies", "label": "gender and sexuality studies", "shape": "dot", "size": 10}, {"id": "central/eastern european studies", "label": "central/eastern european studies", "shape": "dot", "size": 10}, {"id": "performance studies: dance", "label": "performance studies: dance", "shape": "dot", "size": 10}, {"id": "theatre", "label": "theatre", "shape": "dot", "size": 10}, {"id": "communication studies", "label": "communication studies", "shape": "dot", "size": 10}, {"id": "philosophy", "label": "philosophy", "shape": "dot", "size": 10}, {"id": "galleries and museum studies", "label": "galleries and museum studies", "shape": "dot", "size": 10}, {"id": "south asian studies", "label": "south asian studies", "shape": "dot", "size": 10}, {"id": "translation studies", "label": "translation studies", "shape": "dot", "size": 10}, {"id": "anthropology", "label": "anthropology", "shape": "dot", "size": 10}, {"id": "african and african american studies", "label": "african and african american studies", "shape": "dot", "size": 10}, {"id": "games studies", "label": "games studies", "shape": "dot", "size": 10}, {"id": "literacy", "label": "literacy", "shape": "dot", "size": 10}, {"id": "composition", "label": "composition", "shape": "dot", "size": 10}, {"id": "and creative writing", "label": "and creative writing", "shape": "dot", "size": 10}, {"id": "language acquisition", "label": "language acquisition", "shape": "dot", "size": 10}, {"id": "musicology", "label": "musicology", "shape": "dot", "size": 10}, {"id": "mathematics", "label": "mathematics", "shape": "dot", "size": 10}, {"id": "film and cinema arts studies", "label": "film and cinema arts studies", "shape": "dot", "size": 10}, {"id": "statistics", "label": "statistics", "shape": "dot", "size": 10}, {"id": "cognitive sciences and psychology", "label": "cognitive sciences and psychology", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"from": "asian studies", "label": 1, "to": "feminist studies", "weight": 1}, {"from": "asian studies", "label": 1, "to": "ethnography and folklore", "weight": 1}, {"from": "asian studies", "label": 3, "to": "cultural studies", "weight": 3}, {"from": "asian studies", "label": 2, "to": "humanities computing", "weight": 2}, {"from": "asian studies", "label": 3, "to": "computer science", "weight": 3}, {"from": "asian studies", "label": 2, "to": "literary studies", "weight": 2}, {"from": "asian studies", "label": 1, "to": "law and legal studies", "weight": 1}, {"from": "asian studies", "label": 5, "to": "history", "weight": 5}, {"from": "asian studies", "label": 2, "to": "book and print history", "weight": 2}, {"from": "asian studies", "label": 3, "to": "art history", "weight": 3}, {"from": "asian studies", "label": 1, "to": "history of science", "weight": 1}, {"from": "asian studies", "label": 1, "to": "theology and religious studies", "weight": 1}, {"from": "asian studies", "label": 1, "to": "linguistics", "weight": 1}, {"from": "asian studies", "label": 1, "to": "political science", "weight": 1}, {"from": "asian studies", "label": 1, "to": "sociology", "weight": 1}, {"from": "asian studies", "label": 1, "to": "philology", "weight": 1}, {"from": "asian studies", "label": 1, "to": "library \u0026 information science", "weight": 1}, {"from": "geography and geo-humanities", "label": 2, "to": "cultural studies", "weight": 2}, {"from": "geography and geo-humanities", "label": 5, "to": "history", "weight": 5}, {"from": "geography and geo-humanities", "label": 1, "to": "indigenous studies", "weight": 1}, {"from": "geography and geo-humanities", "label": 1, "to": "computer science", "weight": 1}, {"from": "geography and geo-humanities", "label": 1, "to": "humanities computing", "weight": 1}, {"from": "media studies", "label": 2, "to": "library \u0026 information science", "weight": 2}, {"from": "media studies", "label": 2, "to": "cultural studies", "weight": 2}, {"from": "media studies", "label": 2, "to": "sociology", "weight": 2}, {"from": "media studies", "label": 1, "to": "education/ pedagogy", "weight": 1}, {"from": "media studies", "label": 2, "to": "literary studies", "weight": 2}, {"from": "media studies", "label": 1, "to": "computer science", "weight": 1}, {"from": "chicano/a/x", "label": 1, "to": "latino/a/x studies", "weight": 1}, {"from": "chicano/a/x", "label": 1, "to": "computer science", "weight": 1}, {"from": "history", "label": 3, "to": "archaeology", "weight": 3}, {"from": "history", "label": 8, "to": "humanities computing", "weight": 8}, {"from": "history", "label": 4, "to": "computer science", "weight": 4}, {"from": "history", "label": 2, "to": "philology", "weight": 2}, {"from": "history", "label": 1, "to": "environmental", "weight": 1}, {"from": "history", "label": 1, "to": "ocean", "weight": 1}, {"from": "history", "label": 1, "to": "and waterway studies", "weight": 1}, {"from": "history", "label": 1, "to": "theology and religious studies", "weight": 1}, {"from": "history", "label": 1, "to": "library \u0026 information science", "weight": 1}, {"from": "history", "label": 4, "to": "book and print history", "weight": 4}, {"from": "history", "label": 1, "to": "transgender and non-binary studies", "weight": 1}, {"from": "history", "label": 1, "to": "design studies", "weight": 1}, {"from": "history", "label": 1, "to": "feminist studies", "weight": 1}, {"from": "history", "label": 1, "to": "informatics", "weight": 1}, {"from": "history", "label": 1, "to": "cultural studies", "weight": 1}, {"from": "history", "label": 1, "to": "art history", "weight": 1}, {"from": "history", "label": 2, "to": "linguistics", "weight": 2}, {"from": "history", "label": 1, "to": "gender and sexuality studies", "weight": 1}, {"from": "history", "label": 1, "to": "central/eastern european studies", "weight": 1}, {"from": "history", "label": 1, "to": "performance studies: dance", "weight": 1}, {"from": "history", "label": 1, "to": "theatre", "weight": 1}, {"from": "ethnography and folklore", "label": 1, "to": "performance studies: dance", "weight": 1}, {"from": "ethnography and folklore", "label": 1, "to": "theatre", "weight": 1}, {"from": "ethnography and folklore", "label": 1, "to": "theology and religious studies", "weight": 1}, {"from": "theatre", "label": 1, "to": "literary studies", "weight": 1}, {"from": "theatre", "label": 3, "to": "performance studies: dance", "weight": 3}, {"from": "archaeology", "label": 1, "to": "computer science", "weight": 1}, {"from": "archaeology", "label": 1, "to": "library \u0026 information science", "weight": 1}, {"from": "communication studies", "label": 3, "to": "computer science", "weight": 3}, {"from": "communication studies", "label": 1, "to": "linguistics", "weight": 1}, {"from": "environmental", "label": 2, "to": "ocean", "weight": 2}, {"from": "environmental", "label": 2, "to": "and waterway studies", "weight": 2}, {"from": "theology and religious studies", "label": 1, "to": "humanities computing", "weight": 1}, {"from": "theology and religious studies", "label": 1, "to": "art history", "weight": 1}, {"from": "theology and religious studies", "label": 1, "to": "education/ pedagogy", "weight": 1}, {"from": "philosophy", "label": 1, "to": "computer science", "weight": 1}, {"from": "philosophy", "label": 1, "to": "humanities computing", "weight": 1}, {"from": "philosophy", "label": 1, "to": "philology", "weight": 1}, {"from": "art history", "label": 1, "to": "informatics", "weight": 1}, {"from": "art history", "label": 4, "to": "computer science", "weight": 4}, {"from": "art history", "label": 3, "to": "galleries and museum studies", "weight": 3}, {"from": "art history", "label": 1, "to": "south asian studies", "weight": 1}, {"from": "art history", "label": 1, "to": "design studies", "weight": 1}, {"from": "translation studies", "label": 1, "to": "book and print history", "weight": 1}, {"from": "translation studies", "label": 1, "to": "literary studies", "weight": 1}, {"from": "translation studies", "label": 1, "to": "cultural studies", "weight": 1}, {"from": "gender and sexuality studies", "label": 1, "to": "library \u0026 information science", "weight": 1}, {"from": "gender and sexuality studies", "label": 1, "to": "cultural studies", "weight": 1}, {"from": "gender and sexuality studies", "label": 1, "to": "humanities computing", "weight": 1}, {"from": "gender and sexuality studies", "label": 1, "to": "literary studies", "weight": 1}, {"from": "gender and sexuality studies", "label": 1, "to": "computer science", "weight": 1}, {"from": "gender and sexuality studies", "label": 2, "to": "feminist studies", "weight": 2}, {"from": "anthropology", "label": 1, "to": "linguistics", "weight": 1}, {"from": "performance studies: dance", "label": 1, "to": "literary studies", "weight": 1}, {"from": "african and african american studies", "label": 1, "to": "history of science", "weight": 1}, {"from": "african and african american studies", "label": 1, "to": "library \u0026 information science", "weight": 1}, {"from": "african and african american studies", "label": 1, "to": "literary studies", "weight": 1}, {"from": "games studies", "label": 2, "to": "literary studies", "weight": 2}, {"from": "literacy", "label": 2, "to": "composition", "weight": 2}, {"from": "literacy", "label": 2, "to": "and creative writing", "weight": 2}, {"from": "literacy", "label": 2, "to": "literary studies", "weight": 2}, {"from": "philology", "label": 3, "to": "humanities computing", "weight": 3}, {"from": "philology", "label": 5, "to": "linguistics", "weight": 5}, {"from": "philology", "label": 1, "to": "book and print history", "weight": 1}, {"from": "philology", "label": 6, "to": "literary studies", "weight": 6}, {"from": "philology", "label": 1, "to": "language acquisition", "weight": 1}, {"from": "philology", "label": 1, "to": "musicology", "weight": 1}, {"from": "philology", "label": 2, "to": "library \u0026 information science", "weight": 2}, {"from": "philology", "label": 1, "to": "education/ pedagogy", "weight": 1}, {"from": "philology", "label": 1, "to": "south asian studies", "weight": 1}, {"from": "language acquisition", "label": 1, "to": "education/ pedagogy", "weight": 1}, {"from": "language acquisition", "label": 1, "to": "linguistics", "weight": 1}, {"from": "galleries and museum studies", "label": 2, "to": "cultural studies", "weight": 2}, {"from": "galleries and museum studies", "label": 1, "to": "library \u0026 information science", "weight": 1}, {"from": "galleries and museum studies", "label": 1, "to": "book and print history", "weight": 1}, {"from": "composition", "label": 2, "to": "and creative writing", "weight": 2}, {"from": "composition", "label": 2, "to": "literary studies", "weight": 2}, {"from": "humanities computing", "label": 1, "to": "design studies", "weight": 1}, {"from": "humanities computing", "label": 10, "to": "computer science", "weight": 10}, {"from": "humanities computing", "label": 12, "to": "literary studies", "weight": 12}, {"from": "humanities computing", "label": 4, "to": "library \u0026 information science", "weight": 4}, {"from": "humanities computing", "label": 2, "to": "cultural studies", "weight": 2}, {"from": "humanities computing", "label": 1, "to": "informatics", "weight": 1}, {"from": "humanities computing", "label": 1, "to": "education/ pedagogy", "weight": 1}, {"from": "humanities computing", "label": 1, "to": "linguistics", "weight": 1}, {"from": "humanities computing", "label": 1, "to": "mathematics", "weight": 1}, {"from": "humanities computing", "label": 1, "to": "political science", "weight": 1}, {"from": "humanities computing", "label": 1, "to": "book and print history", "weight": 1}, {"from": "and creative writing", "label": 2, "to": "literary studies", "weight": 2}, {"from": "latino/a/x studies", "label": 1, "to": "computer science", "weight": 1}, {"from": "book and print history", "label": 3, "to": "literary studies", "weight": 3}, {"from": "book and print history", "label": 1, "to": "library \u0026 information science", "weight": 1}, {"from": "book and print history", "label": 1, "to": "computer science", "weight": 1}, {"from": "education/ pedagogy", "label": 1, "to": "cultural studies", "weight": 1}, {"from": "education/ pedagogy", "label": 3, "to": "library \u0026 information science", "weight": 3}, {"from": "education/ pedagogy", "label": 1, "to": "literary studies", "weight": 1}, {"from": "education/ pedagogy", "label": 1, "to": "computer science", "weight": 1}, {"from": "education/ pedagogy", "label": 1, "to": "design studies", "weight": 1}, {"from": "and waterway studies", "label": 2, "to": "ocean", "weight": 2}, {"from": "law and legal studies", "label": 1, "to": "linguistics", "weight": 1}, {"from": "law and legal studies", "label": 1, "to": "cultural studies", "weight": 1}, {"from": "law and legal studies", "label": 1, "to": "literary studies", "weight": 1}, {"from": "central/eastern european studies", "label": 1, "to": "linguistics", "weight": 1}, {"from": "feminist studies", "label": 1, "to": "history of science", "weight": 1}, {"from": "feminist studies", "label": 1, "to": "informatics", "weight": 1}, {"from": "feminist studies", "label": 1, "to": "cultural studies", "weight": 1}, {"from": "computer science", "label": 2, "to": "musicology", "weight": 2}, {"from": "computer science", "label": 1, "to": "linguistics", "weight": 1}, {"from": "computer science", "label": 3, "to": "library \u0026 information science", "weight": 3}, {"from": "computer science", "label": 10, "to": "literary studies", "weight": 10}, {"from": "computer science", "label": 2, "to": "cultural studies", "weight": 2}, {"from": "film and cinema arts studies", "label": 1, "to": "statistics", "weight": 1}, {"from": "film and cinema arts studies", "label": 1, "to": "cultural studies", "weight": 1}, {"from": "indigenous studies", "label": 1, "to": "informatics", "weight": 1}, {"from": "indigenous studies", "label": 1, "to": "linguistics", "weight": 1}, {"from": "indigenous studies", "label": 1, "to": "south asian studies", "weight": 1}, {"from": "south asian studies", "label": 1, "to": "literary studies", "weight": 1}, {"from": "south asian studies", "label": 1, "to": "linguistics", "weight": 1}, {"from": "literary studies", "label": 7, "to": "cultural studies", "weight": 7}, {"from": "literary studies", "label": 1, "to": "design studies", "weight": 1}, {"from": "literary studies", "label": 9, "to": "linguistics", "weight": 9}, {"from": "literary studies", "label": 2, "to": "library \u0026 information science", "weight": 2}, {"from": "literary studies", "label": 1, "to": "cognitive sciences and psychology", "weight": 1}, {"from": "cultural studies", "label": 1, "to": "library \u0026 information science", "weight": 1}, {"from": "musicology", "label": 1, "to": "informatics", "weight": 1}, {"from": "statistics", "label": 2, "to": "linguistics", "weight": 2}, {"from": "history of science", "label": 1, "to": "library \u0026 information science", "weight": 1}, {"from": "history of science", "label": 1, "to": "informatics", "weight": 1}, {"from": "linguistics", "label": 1, "to": "cognitive sciences and psychology", "weight": 1}, {"from": "linguistics", "label": 1, "to": "design studies", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
